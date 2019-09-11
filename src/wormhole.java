@@ -134,9 +134,9 @@ public class wormhole {
 				CNode n = current;
 				do {
 					map.put(n.pair[0], n.pair[1]);
-					n = n.parent;
+					n = n.getParent();
 					// System.out.println("up");
-				}while(n != null && n.pair != null); // TODO: make getter
+				}while(n != null && n.getPair() != null); // TODO: make getter
 				masterList.add(map);
 				continue;
 			}
@@ -216,15 +216,12 @@ class CNode {
 		this.unused = unused;
 	}
 	
-	public ArrayList<CNode> getChildren(){
-		return children;
-	}
+	// getters
+	public CNode getParent() { return parent; }
+	public Point[] getPair() { return pair; }
+	public ArrayList<CNode> getChildren(){ return children; }
+	public ArrayList<Point> getUnused(){ return unused; }
 	
-	public ArrayList<Point> getUnused(){
-		return unused;
-	}
-	
-	public void setChildren(ArrayList<CNode> children){
-		this.children = children;
-	}
+	// setters
+	public void setChildren(ArrayList<CNode> children){ this.children = children; }
 }
