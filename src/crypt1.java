@@ -12,8 +12,8 @@ public class crypt1 {
 		PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("crypt1.out")));
 		
 		int N = Integer.parseInt(in.readLine());
-		
 		StringTokenizer st = new StringTokenizer(in.readLine());
+		in.close();
 		
 		int[] digits = new int[N];
 		

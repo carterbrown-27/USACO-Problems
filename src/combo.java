@@ -17,6 +17,7 @@ public class combo {
 		if(N <= 5) {
 			out.println((int) Math.pow(N,3));
 			out.close();
+			in.close();
 			return;
 		}
 		
@@ -56,6 +57,7 @@ public class combo {
 		
 		// slick copy/paste job, master combos
 		st = new StringTokenizer(in.readLine());
+		in.close();
 		
 		int ma = Integer.parseInt(st.nextToken());
 		int mb = Integer.parseInt(st.nextToken());

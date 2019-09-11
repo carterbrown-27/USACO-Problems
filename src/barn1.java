@@ -14,6 +14,7 @@ public class barn1 {
 		StringTokenizer st = new StringTokenizer(in.readLine());
 		
 		int M = Integer.parseInt(st.nextToken());
+		@SuppressWarnings("unused")
 		int S = Integer.parseInt(st.nextToken());
 		int C = Integer.parseInt(st.nextToken());
 		
@@ -21,6 +22,7 @@ public class barn1 {
 		if(M >= C) {
 			out.println(C);
 			out.close();
+			in.close();
 			return;
 		}
 		
@@ -29,6 +31,7 @@ public class barn1 {
 		for(int i = 0; i < C; i++) {
 			stalls[i] = Integer.parseInt(in.readLine());
 		} 
+		in.close();
 		
 		Arrays.sort(stalls);
 		
