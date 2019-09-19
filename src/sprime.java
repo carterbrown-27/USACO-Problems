@@ -22,7 +22,6 @@ public class sprime {
 			if(x%2==0) continue;
 			boolean flag = false;
 			for(int p: halfPrimes) {
-				//System.out.println(p);
 				if(x%p == 0) {
 					flag = true;
 					break;
@@ -32,7 +31,6 @@ public class sprime {
 				}
 			}
 			if(!flag) {
-				//System.out.println(x);
 				primes.add(x);
 				if(x < sqrtB / 2) halfPrimes.add(x);
 			}
@@ -42,9 +40,7 @@ public class sprime {
 		
 		System.out.println((System.nanoTime() - first_time) / 1000000 + "ms [A]");
 		
-		ArrayList<Integer> solutions = new ArrayList<Integer>();
 		Set<Integer> superPrimes = new HashSet<Integer>();
-		// Map<Integer,Boolean> checked = new HashMap<Integer,Boolean>();
 		
 		Queue<Integer> q = new LinkedList<Integer>();
 		q.add(2);
@@ -54,7 +50,6 @@ public class sprime {
 		
 		int[] primeDigits = {1,3,7,9};
 		
-		// add dynamic
 		int c;
 		do {
 			c = q.poll();
@@ -69,6 +64,7 @@ public class sprime {
 		
 		System.out.println((System.nanoTime() - first_time) / 1000000 + "ms [B]");
 		
+		ArrayList<Integer> solutions = new ArrayList<Integer>();
 		for(int s: superPrimes) {
 			if(String.valueOf(s).length() == N) solutions.add(s);
 		}
@@ -77,7 +73,6 @@ public class sprime {
 		
 		PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("sprime.out")));
 		for(int sol: solutions) {
-			// System.out.println(sol);
 			out.println(sol);
 		}
 		out.close();
