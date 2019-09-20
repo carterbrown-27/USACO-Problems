@@ -6,9 +6,16 @@ TASK: combo
 import java.io.*;
 import java.util.*;
 public class combo {
-	// WORKS
+	
+	// Solution for the problem "Combination Lock"
 	public static void main(String[] args) throws IOException {
-		BufferedReader in = new BufferedReader(new FileReader("combo.in"));
+		BufferedReader in;
+		String file = "combo.in";
+		try{
+			in = new BufferedReader(new FileReader(file));
+		}catch(Exception e) {
+			in = new BufferedReader(new FileReader("DATA/"+file));
+		}	
 		PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("combo.out")));
 		
 		int N = Integer.parseInt(in.readLine());

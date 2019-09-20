@@ -6,10 +6,19 @@ LANG: JAVA
 import java.io.*;
 import java.util.*;
 public class castle {
+	
+	// Solution for "Problem 10: The Castle"
 	public static void main(String[] args) throws IOException {
 		long first_time = System.nanoTime();
 		
-		BufferedReader in = new BufferedReader(new FileReader("castle.in"));
+		BufferedReader in;
+		String file = "castle.in";
+		try{
+			in = new BufferedReader(new FileReader(file));
+		}catch(Exception e) {
+			in = new BufferedReader(new FileReader("DATA/"+file));
+		}	
+		
 		StringTokenizer st = new StringTokenizer(in.readLine());
 		
 		int X = Integer.parseInt(st.nextToken());
@@ -110,7 +119,7 @@ public class castle {
 		
 		for(int y = 0; y < Y; y++) {
 			for(int x = 0; x < X; x++) {
-				System.out.print(roots[y][x]+" ");
+				System.out.print(roots[y][x]+"\t");
 				int val = rootValueMap.getOrDefault(roots[y][x], 0) + 1;
 				rootValueMap.put(roots[y][x], val);
 			}
@@ -120,7 +129,7 @@ public class castle {
 		int c = 0;
 		int max = 0;
 		for(int n: rootValueMap.values()) {
-			System.out.println(c+":"+n);
+			if(n>1) System.out.println(c+":"+n);
 			max = Math.max(max, n);
 			c++;
 		}
@@ -163,12 +172,15 @@ public class castle {
 		Integer[] maxWall = new Integer[0];
 		for(Integer[] wall: walls) {
 			// y + x + dir
+			int wallDir = wall[2];
+			DIRECTION d = DIRECTION.values()[wallDir];
+			if(d.equals(DIRECTION.SOUTH) || d.equals(DIRECTION.WEST)) continue;
+			
 			int x = wall[0];
 			int y = wall[1];
-			int wallDir = wall[2];
 			int root = wall[3];
 			
-			DIRECTION d = DIRECTION.values()[wallDir];
+			
 			// check room in delta direction
 			int x2 = x + d.DELTA[0];
 			int y2 = y + d.DELTA[1];
@@ -199,6 +211,8 @@ public class castle {
 		out.println(maxSum);
 		out.println((maxWall[1]+1)+" "+(maxWall[0]+1)+" "+DIRECTION_CHARS[maxWall[2]]);
 		out.close();
+		
+		System.out.println((System.nanoTime() - first_time) / 1000000 + "ms [B]");
 	}
 	
 	// int[] = [x,y]

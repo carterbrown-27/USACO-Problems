@@ -8,12 +8,19 @@ import java.io.*;
 import java.util.*;
 import java.util.Map.Entry;
 
-// WORKS!
 public class wormhole {
+	
+	// Solution for the problem "Wormholes"
 	public static void main(String[] args) throws IOException {
 		long first_time = System.nanoTime();
 		
-		BufferedReader in = new BufferedReader(new FileReader("wormhole.in"));
+		BufferedReader in;
+		String file = "wormhole.in";
+		try{
+			in = new BufferedReader(new FileReader(file));
+		}catch(Exception e) {
+			in = new BufferedReader(new FileReader("DATA/"+file));
+		}	
 		int N = Integer.parseInt(in.readLine());
 
 		Point[] holes = new Point[N];

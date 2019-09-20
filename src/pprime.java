@@ -6,10 +6,18 @@ LANG: JAVA
 import java.util.*;
 import java.io.*;
 public class pprime {
+	
+	// Solution for the problem "Prime Palindromes"
 	public static void main(String[] args) throws IOException {
 		long first_time = System.nanoTime();
 		
-		BufferedReader in = new BufferedReader(new FileReader("pprime.in"));
+		BufferedReader in;
+		String file = "pprime.in";
+		try{
+			in = new BufferedReader(new FileReader(file));
+		}catch(Exception e) {
+			in = new BufferedReader(new FileReader("DATA/"+file));
+		}	
 		StringTokenizer st = new StringTokenizer(in.readLine());
 
 		int a = Integer.parseInt(st.nextToken());

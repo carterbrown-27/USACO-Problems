@@ -5,14 +5,18 @@ LANG: JAVA
  */
 import java.io.*;
 import java.util.*;
-
 public class numtri {
 	
-	// WORKS!
-
+	// Solution for "Problem 68: Number Triangles"
 	public static void main(String[] args) throws IOException {
-		// TODO Auto-generated method stub
-		BufferedReader in = new BufferedReader(new FileReader("numtri.in"));
+		
+		BufferedReader in;
+		String file = "numtri.in";
+		try{
+			in = new BufferedReader(new FileReader(file));
+		}catch(Exception e) {
+			in = new BufferedReader(new FileReader("DATA/"+file));
+		}	
 
 		int R = Integer.parseInt(in.readLine());
 

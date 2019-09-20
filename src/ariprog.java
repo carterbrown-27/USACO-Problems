@@ -6,11 +6,18 @@ LANG: JAVA
 import java.io.*;
 import java.util.*;
 public class ariprog {
-
-	// WORKS!!
+	
+	// Solution for the Problem "Arithmetic Progressions"
 	public static void main(String[] args) throws IOException {
 		
-		BufferedReader in = new BufferedReader(new FileReader("ariprog.in"));
+		BufferedReader in;
+		String file = "ariprog.in";
+		try{
+			in = new BufferedReader(new FileReader(file));
+		}catch(Exception e) {
+			in = new BufferedReader(new FileReader("DATA/"+file));
+		}	
+		
 		int NX = Integer.parseInt(in.readLine());
 		int M = Integer.parseInt(in.readLine());
 		in.close();

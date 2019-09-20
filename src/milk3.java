@@ -6,8 +6,16 @@ LANG: JAVA
 import java.io.*;
 import java.util.*;
 public class milk3 {
+	
+	// Solution for the problem "Mother's Milk"
 	public static void main(String[] args) throws IOException {
-		BufferedReader in = new BufferedReader(new FileReader("milk3.in"));
+		BufferedReader in;
+		String file = "milk3.in";
+		try{
+			in = new BufferedReader(new FileReader(file));
+		}catch(Exception e) {
+			in = new BufferedReader(new FileReader("DATA/"+file));
+		}	
 		StringTokenizer st = new StringTokenizer(in.readLine());
 		
 		int Acap  = Integer.parseInt(st.nextToken());

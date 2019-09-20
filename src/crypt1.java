@@ -7,8 +7,16 @@ import java.io.*;
 import java.util.*;
 
 public class crypt1 {
+	
+	// Solution for the problem "Prime Cryptarithm"
 	public static void main(String[] args) throws IOException {
-		BufferedReader in = new BufferedReader(new FileReader("crypt1.in"));
+		BufferedReader in;
+		String file = "crypt1.in";
+		try{
+			in = new BufferedReader(new FileReader(file));
+		}catch(Exception e) {
+			in = new BufferedReader(new FileReader("DATA/"+file));
+		}	
 		PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("crypt1.out")));
 		
 		int N = Integer.parseInt(in.readLine());

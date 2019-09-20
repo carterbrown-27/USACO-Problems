@@ -7,10 +7,17 @@ import java.io.*;
 import java.util.*;
 public class sprime {
 
+	// Solution for "Problem 6: Superprime Rib"
 	public static void main(String[] args) throws IOException {
 		long first_time = System.nanoTime();
 		
-		BufferedReader in = new BufferedReader(new FileReader("sprime.in"));
+		BufferedReader in;
+		String file = "sprime.in";
+		try{
+			in = new BufferedReader(new FileReader(file));
+		}catch(Exception e) {
+			in = new BufferedReader(new FileReader("DATA/"+file));
+		}	
 		int N = Integer.parseInt(in.readLine());
 		in.close();
 		

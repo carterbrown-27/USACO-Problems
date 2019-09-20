@@ -7,8 +7,16 @@ import java.io.*;
 import java.util.*;
 
 public class barn1 {
+	
+	// Solution for the problem "Barn Repair"
 	public static void main(String[] args) throws IOException {
-		BufferedReader in = new BufferedReader(new FileReader("barn1.in"));
+		BufferedReader in;
+		String file = "barn1.in";
+		try{
+			in = new BufferedReader(new FileReader(file));
+		}catch(Exception e) {
+			in = new BufferedReader(new FileReader("DATA/"+file));
+		}	
 		PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("barn1.out")));
 		
 		StringTokenizer st = new StringTokenizer(in.readLine());

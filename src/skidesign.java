@@ -6,10 +6,17 @@ TASK: skidesign
 import java.util.*;
 import java.io.*;
 
-// WORKS
 public class skidesign {
+	
+	// Solution for the problem "Ski Course Design"
 	public static void main(String[] args) throws IOException {
-		BufferedReader in = new BufferedReader(new FileReader("skidesign.in"));
+		BufferedReader in;
+		String file = "skidesign.in";
+		try{
+			in = new BufferedReader(new FileReader(file));
+		}catch(Exception e) {
+			in = new BufferedReader(new FileReader("DATA/"+file));
+		}	
 		int N = Integer.parseInt(in.readLine());
 		
 		int[] hills = new int[N];

@@ -9,8 +9,13 @@ public class ariprogSlow {
 
 	// WORKS BUT SLOW, see ariprog.java for quickeset solution
 	public static void main(String[] args) throws IOException {
-		// TODO Auto-generated method stub
-		BufferedReader in = new BufferedReader(new FileReader("ariprog.in"));
+		BufferedReader in;
+		try{
+			in = new BufferedReader(new FileReader("ariprog.in"));
+		}catch(Exception e) {
+			in = new BufferedReader(new FileReader("DATA/ariprog.in"));
+		}	
+		
 		int NX = Integer.parseInt(in.readLine());
 		int M = Integer.parseInt(in.readLine());
 		in.close();
