@@ -7,7 +7,7 @@ import java.io.*;
 import java.util.*;
 public class castle {
 	
-	// Solution for "Problem 10: The Castle"
+	// Solution for "Problem 10The Castle"
 	public static void main(String[] args) throws IOException {
 		long first_time = System.nanoTime();
 		
