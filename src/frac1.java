@@ -8,7 +8,11 @@ import java.util.*;
 public class frac1 {
 	
 	// Solution for the problem "Ordered Fractions"
+	// note: not optimized but more than satisfies the reqs for the problem
+	// (finishes the worst-case in <5% of the allocated time)
 	public static void main(String[] args) throws IOException {
+		long first_time = System.nanoTime();
+		
 		BufferedReader in;
 		String file = "frac1.in";
 		try{
@@ -61,6 +65,8 @@ public class frac1 {
 			out.println(f[0]+"/"+f[1]);
 		}
 		out.close();
+		
+		System.out.println((System.nanoTime() - first_time) / 1000000 + "ms [F]");
 	}
 	
 	public static Set<Integer> getPrimeFactors(int n, Set<Integer> primes) {

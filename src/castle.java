@@ -212,7 +212,7 @@ public class castle {
 		out.println((maxWall[1]+1)+" "+(maxWall[0]+1)+" "+DIRECTION_CHARS[maxWall[2]]);
 		out.close();
 		
-		System.out.println((System.nanoTime() - first_time) / 1000000 + "ms [B]");
+		System.out.println((System.nanoTime() - first_time) / 1000000 + "ms [F]");
 	}
 	
 	// int[] = [x,y]
