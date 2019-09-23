@@ -5,7 +5,6 @@ LANG: JAVA
  */
 import java.io.*;
 import java.util.*;
-import java.util.Map.Entry;
 public class sort3 {
 
 	// Solution to "Sorting a Three-Valued Sequence"
