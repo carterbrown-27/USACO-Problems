@@ -9,7 +9,7 @@ public class numtri {
 	
 	// Solution for "Problem 68: Number Triangles"
 	public static void main(String[] args) throws IOException {
-		
+		long first_time = System.nanoTime();
 		BufferedReader in;
 		String file = "numtri.in";
 		try{
@@ -49,6 +49,7 @@ public class numtri {
 		out.println(maxSum);
 		System.out.println(maxSum);
 		out.close();
+		
+		System.out.println((System.nanoTime() - first_time) / 1000000 + "ms [F]");
 	}
-	
 }
