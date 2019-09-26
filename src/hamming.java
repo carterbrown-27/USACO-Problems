@@ -6,6 +6,8 @@ LANG: JAVA
 import java.io.*;
 import java.util.*;
 public class hamming {
+	
+	// Solution to "Problem 94_Hamming Codes"
 	public static void main(String[] args) throws IOException {
 		long first_time = System.nanoTime();
 
@@ -92,7 +94,6 @@ public class hamming {
 		for(int i = 0; i < a.length(); i++) {
 			if(a.charAt(i) != b.charAt(i)) dist++;
 		}
-		// System.out.println(dist);
 		return dist;
 	}
 }
