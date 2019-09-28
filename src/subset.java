@@ -31,10 +31,11 @@ public class subset {
 		 * ---
 		 * n=1
 		 */
-		int sigma = N * (N+1) / 2;
 		
+		float sigma = N * (N+1) / 2;
 		if(sigma % 2 == 0) {
-			int targetSum = sigma/2;
+			// divis by two means int division is safe
+			int targetSum = (int) sigma/2;
 			// amounts of sums for each number 1,2....N
 			// long bc, integer overflows
 			long[] sumsWays = new long[targetSum+1];
@@ -55,7 +56,7 @@ public class subset {
 					}
 				}
 			}
-			
+		
 			// div by 2 bc each way to make the targetSum has a complement S1 vs. S1C
 			out.println(sumsWays[targetSum]/2);
 			
