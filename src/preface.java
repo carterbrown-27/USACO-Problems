@@ -33,10 +33,7 @@ public class preface {
 				if(t < NUMERALS[cN]) {
 					// handle CM/IX cases
 					if(cN % 2 == 0 && cN < 6) {
-						// 1000, 100, 10, 1
-						// 1000 checks 100
-						// 100 checks 10
-						// 10 checks 1
+						// 1000 checks 100, etc.
 						int r = NUMERALS[cN]-NUMERALS[cN+2];
 						if(t >= r) {
 							t-=r;
@@ -44,9 +41,7 @@ public class preface {
 							totals[cN+2]++;
 						}
 					}else {
-						// 500 checks 100
-						// 50 checks 10
-						// 5 checks 1
+						// 500 checks 100, etc.
 						int r = NUMERALS[cN]-NUMERALS[cN+1];
 						if(t >= r) {
 							t-=r;
@@ -61,8 +56,8 @@ public class preface {
 					totals[cN]++;
 				}
 			}while(t > 0);
-			
 		}
+		
 		PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("preface.out")));
 		for(int i = totals.length; i-- > 0;) {
 			if(totals[i] > 0) out.println(NUMERAL_CHARS[i]+" "+totals[i]);
@@ -71,5 +66,4 @@ public class preface {
 		
 		System.out.println((System.nanoTime() - first_time) / 1000000 + "ms [F]");
 	}
-
 }
