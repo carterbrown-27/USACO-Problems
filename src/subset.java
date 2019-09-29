@@ -32,7 +32,7 @@ public class subset {
 		 * n=1
 		 */
 		
-		float sigma = N * (N+1) / 2;
+		float sigma = N * (N+1) / 2f;
 		if(sigma % 2 == 0) {
 			// divis by two means int division is safe
 			int targetSum = (int) sigma/2;
