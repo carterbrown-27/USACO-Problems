@@ -1,0 +1,28 @@
+Section 1.4 (*....)
+*.. Barn Repair
+*.. Combination Lock
+**. Ski Course Design
+**. Prime Cryptarithm
+*** Wormholes
+
+Section 1.5 (**...)
+**. Mother's Milk
+*** Arithmetic Progressions
+
+Section 1.6 (**...)
+**. Prime Palindromes
+**. Number Triangles
+**. Superprime Rib
+
+Section 2.1 (***..)
+*.. Ordered Fractions
+**. Ordering a Three-Valued Sequence
+**. Healthy Holsteins
+**. Hamming Codes
+*** The Castle
+
+Section 2.2 (***..)
+*.. Preface Numbering
+*.. Runaround Numbers
+*** Subset Sums
+??? Party Lamps

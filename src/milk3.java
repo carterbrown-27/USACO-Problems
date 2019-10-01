@@ -64,18 +64,18 @@ public class milk3 {
 		
 		previous.add(vals);
 		
-		for(int fromx = 0; fromx < 3; fromx++) {
-			for(int tox = 0; tox < 3; tox++) {
-				if(fromx==tox) continue;
-				int space = caps[tox] - vals[tox];
+		for(int fromX = 0; fromX < 3; fromX++) {
+			for(int toX = 0; toX < 3; toX++) {
+				if(fromX==toX) continue;
+				int space = caps[toX] - vals[toX];
 				if(space == 0) continue;
 				
 				// smallest value of milk left or space left
-				int amtPoured = Math.min(space, vals[fromx]);
+				int amtPoured = Math.min(space, vals[fromX]);
 				
 				Integer[] newVals = Arrays.copyOf(vals,vals.length);
-				newVals[fromx] -= amtPoured;
-				newVals[tox] += amtPoured;
+				newVals[fromX] -= amtPoured;
+				newVals[toX] += amtPoured;
 				
  				search(newVals, previous);
 			}
