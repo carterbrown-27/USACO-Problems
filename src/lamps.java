@@ -54,9 +54,8 @@ public class lamps {
 		}
 		System.out.println();
 
-		// TODO: add C influence.
 		// 0b----, one bit per rule
-		// 0 = even number of presses (incl. 0)
+		// 0 = even number of presses (incl. 0), as even presses is the same as no presses
 		// 1 = odd number of presses
 		ArrayList<String> ruleCombos = new ArrayList<String>();
 		for(int i = 0; i < 16; i++) {
@@ -74,10 +73,6 @@ public class lamps {
 			String format = "%" + 4 + "s";
 			String binaryF = String.format(format,binary).replaceAll(" ", "0");
 			ruleCombos.add(binaryF);
-		}
-
-		for(String combo: ruleCombos) {
-			System.out.println(combo);
 		}
 
 		Set<Integer[]> solutions = new HashSet<Integer[]>();
@@ -109,12 +104,7 @@ public class lamps {
 				states[pos] = cState;
 			}
 			
-//			for(int s: states) {
-//				System.out.print(s);
-//			}
-//			System.out.println();
-			
-			// check that it's valid, could just refer to the sets on/off.
+			// check that it's valid, TODO: just refer to the sets on/off.
 			boolean valid = true;
 			for(int i = 0; i < states.length; i++) {
 				int l = neededConfig[i];
@@ -132,8 +122,6 @@ public class lamps {
 			}
 		}
 		
-		
-		// gets the right solution (for test 1), just has to order them by binary value (100bits)!
 		ArrayList<String> sortedSolutions = new ArrayList<String>();
 		for(Integer[] solution: solutions) {
 			String s = "";
@@ -145,6 +133,7 @@ public class lamps {
 			sortedSolutions.add(s);
 		}
 		
+		// Compare binary #s that are any string length.
 		Collections.sort(sortedSolutions, (String a, String b) -> {
 			// System.out.println("new: "+a+" "+b);
 			int index = 0;
