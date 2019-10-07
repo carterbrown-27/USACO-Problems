@@ -10,7 +10,7 @@ public class prefix {
 	public static ArrayList<String> prefixList = new ArrayList<String>();
 	public static Set<Integer> triedStringLengths = new HashSet<Integer>();
 	
-	// this works but is too slow for the worst case (200,000 string length = 0.7s on my machine)
+	// WORKING SOLUTION for the problem "Section 2.3 - Longest Prefix" 0.35s (0.93s on grader) in worst case
 	public static void main(String[] args) throws IOException {
 		long first_time = System.nanoTime();
 
@@ -22,26 +22,29 @@ public class prefix {
 			in = new BufferedReader(new FileReader("DATA/"+file));
 		}
 
-		ArrayList<String> prefixes = new ArrayList<String>();
+		ArrayList<String> prefixes = new ArrayList<String>(200);
 		String line = in.readLine();
 		while(!line.equals(".")) {
 			prefixes.addAll(Arrays.asList(line.split(" ")));
 			line = in.readLine();
 		}
 		
-		Collections.sort(prefixes, (a,b) -> {
-			return Integer.valueOf(a.length()).compareTo(b.length());
-		});
 		System.out.println((System.nanoTime() - first_time) / 1000000 + "ms [R1]");
 		
-
-		String s = "";
+		Collections.sort(prefixes, (a,b) -> {
+			return Integer.valueOf(b.length()).compareTo(a.length());
+		});
+		System.out.println((System.nanoTime() - first_time) / 1000000 + "ms [R1B]");
+		
+		StringBuilder sb = new StringBuilder(200000);
 		line = in.readLine();
 		while(line != null) {
-			s = s.concat(line);
+			sb.append(line);
 			line = in.readLine();
 		}
 		in.close();
+		
+		String s = sb.toString();
 		
 		System.out.println((System.nanoTime() - first_time) / 1000000 + "ms [R2]");
 		
@@ -51,46 +54,52 @@ public class prefix {
 
 		for (String p: prefixes) {
 			// System.out.println("next prefix ="+ p);
-			if(true || !isNotUnique(p,"",prefixes)) {
+			if(!isNotUnique(p,"",prefixes)) {
 				// System.out.println("valid");
 				prefixList.add(p);
 			}
 		}
 
-		
-//		int biggestPref = prefixList.get(prefixList.size()-1).length();
+		System.out.println((System.nanoTime() - first_time) / 1000000 + "ms [A]");
 
 		int lastPos = -1;
 		int max = 0;
 		ArrayList<Integer> order = new ArrayList<Integer>();
+		int sL = s.length();
 		
 		int pos = 0;
+		boolean tried = false;
+		boolean foundNext = false;
+		int cL = pos;
+		
 		while(true) {
-			boolean tried = false;
-			boolean foundNext = false;
-			int cL = pos;
-			if (!triedStringLengths.contains(cL) || cL >= s.length()) {
-				// if (cL % 500 == 0) System.out.println(cL);
+			tried = false;
+			foundNext = false;
+			cL = pos;
+			if (!triedStringLengths.contains(cL) && cL < sL) {
+				if (cL == 199049) {
+					System.out.println((System.nanoTime() - first_time) / 1000000 + "ms [ANS]");
+				}
 				foundNext = false;
 				for (int i = lastPos + 1; i < prefixList.size(); i++) {
 					String p = prefixList.get(i);
-					if(lastPos >= 0 && p.length() <= prefixList.get(lastPos).length()) continue;
-					int cLpP = cL + p.length();
-					if (cLpP <= s.length() && s.substring(cL, cLpP).contentEquals(p)) {
+					int pL = p.length();
+					if(lastPos >= 0 && pL >= prefixList.get(lastPos).length()) continue;
+					
+					if (pos+pL <= sL && s.substring(cL, pos+pL).contentEquals(p)) {
 						order.add(i);
-						pos += p.length();
+						pos += pL;
 						foundNext = true;
 						lastPos = -1;
 						break;
 					}
-				} 
+				}
 			}else {
 				tried = true;
 			}
 			
 			if(!foundNext) {
 				max = Math.max(max, cL);
-				
 				if(order.size() == 0) {
 					break;
 				}
