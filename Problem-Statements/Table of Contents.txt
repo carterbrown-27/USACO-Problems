@@ -23,6 +23,10 @@ Section 2.1 (***..)
 
 Section 2.2 (***..)
 *.. Preface Numbering
-*.. Runaround Numbers
+**. Runaround Numbers
 *** Subset Sums
-??? Party Lamps
+*** Party Lamps
+
+Section 2.3 (?????)
+*** Longest Prefix
+??? Cow Pedigrees
