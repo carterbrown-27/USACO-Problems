@@ -37,9 +37,7 @@ public class lamps {
 			offs.add(i);
 		}
 
-		// -1: no reqs
-		// 0: off req
-		// 1: on req
+		// -1: no reqs, 0: off, 1: on
 		int[] neededConfig = new int[N];
 		for(int i = 1; i <= N; i++) {
 			int value = -1;
@@ -47,12 +45,6 @@ public class lamps {
 			if(offs.contains(i)) value = 0;
 			neededConfig[i-1] = value;
 		}	
-
-
-		for(int r: neededConfig) {
-			System.out.print(r+",");
-		}
-		System.out.println();
 
 		// 0b----, one bit per rule
 		// 0 = even number of presses (incl. 0), as even presses is the same as no presses
@@ -104,7 +96,7 @@ public class lamps {
 				states[pos] = cState;
 			}
 			
-			// check that it's valid, TODO: just refer to the sets on/off.
+			// check that it's valid
 			boolean valid = true;
 			for(int i = 0; i < states.length; i++) {
 				int l = neededConfig[i];

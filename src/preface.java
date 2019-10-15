@@ -3,7 +3,6 @@ ID: carter.2
 TASK: preface
 LANG: JAVA
  */
-import java.util.*;
 import java.io.*;
 public class preface {
 

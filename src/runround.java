@@ -5,7 +5,6 @@ LANG: JAVA
  */
 import java.io.*;
 import java.util.*;
-import java.util.regex.*;
 public class runround {
 	
 	// Solution to "Problem 57_Runaround Numbers"
