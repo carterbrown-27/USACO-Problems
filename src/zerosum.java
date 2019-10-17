@@ -26,7 +26,6 @@ public class zerosum {
 		
 		ArrayList<String> solutions = new ArrayList<String>();
 		for(String c: combos) {
-			
 			/*
 			 * $s = string with spaces between each individual "number" (series of digits combined)
 			 * $pMStr = string with only the +/-'s, will always have N elements, where N is the number
@@ -41,7 +40,9 @@ public class zerosum {
 			for(int x = 1; x <= N; x++) {
 				s+=x;
 				finalStr+=x;
+				
 				if(x==N) continue;
+				
 				char ch = c.charAt(x-1);
 				if(ch != ' ') {
 					s += " ";
@@ -86,7 +87,6 @@ public class zerosum {
 		System.out.println((System.nanoTime() - first_time) / 1000000 + "ms [F]");
 	}
 	
-	
 	// recursively gen all +/-/space combos, this is fine because N<=9.
 	public static Set<String> combos = new HashSet<String>();
 	public static void genCombos(String s, int N) {
@@ -98,5 +98,4 @@ public class zerosum {
 		genCombos(s+'-',N);
 		genCombos(s+' ',N);
 	}
-
 }

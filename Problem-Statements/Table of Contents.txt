@@ -27,7 +27,8 @@ Section 2.2 (***..)
 *** Subset Sums
 *** Party Lamps
 
-Section 2.3 (?????)
+Section 2.3 (**...)
 *** Longest Prefix
-??? Cow Pedigrees
+**. Cow Pedigrees
 *.. Zero Sum
+*.. Money Systems
