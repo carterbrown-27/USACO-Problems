@@ -10,6 +10,7 @@ public class concom {
 	public static int[][] stakes = new int[100][100];
 	public static Set<String> answers = new HashSet<String>();
 	
+	// Solution for Section 2.3 "Controlling Companies"
 	public static void main(String[] args) throws IOException {
 		long first_time = System.nanoTime();
 		
