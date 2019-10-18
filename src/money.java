@@ -42,17 +42,16 @@ public class money {
 
 		/*
 		 * for each coin value, go through all the sums, working upwards, calc ways to make number
-		 * 
 		 */
 		
 		// make sure that c is outer loop, otherwise results compound.
 		for(int c: coins) {
 			for(int x = 1; x <= N; x++) {
-				if(x < c) continue;
 				// since x-c is the solution - the last coin added (c), add the # of ways (ways[x-c])
 				// to ways[x], this is will give f(x) = f(x-coin1) + f(x-coin2) + ... + f(coinN) 
+				if(x-c < 0) continue;
 				ways[x] += ways[x-c];
-				// [DEBUG] System.out.println("c = "+c+" $"+x+" "+ways[x]);
+				// System.out.println("c = "+c+" $"+x+" "+ways[x]);
 			}
 		}
 

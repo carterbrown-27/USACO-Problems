@@ -6,7 +6,8 @@ LANG: JAVA
 import java.io.*;
 import java.util.*;
 public class nocows {
-
+	
+	// Solution for "Cow Pedigrees" outlined at https://belbesy.wordpress.com/2012/08/08/usaco-2-3-2-cow-pedigrees/
 	public static void main(String[] args) throws IOException {
 		BufferedReader in;
 		String file = "nocows.in";
