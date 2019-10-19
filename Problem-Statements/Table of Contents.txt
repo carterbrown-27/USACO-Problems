@@ -27,8 +27,8 @@ Section 2.2 (***..)
 *** Subset Sums
 *** Party Lamps
 
-Section 2.3 (**...)
-*** Longest Prefix
+Section 2.3 (***..) - Dynamic Programming
+**. Longest Prefix
 **. Cow Pedigrees
 *.. Zero Sum
 *.. Money Systems
