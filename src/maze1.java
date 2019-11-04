@@ -142,10 +142,10 @@ public class maze1 {
 		int max = 0;
 		for(int y = 0; y < smallH; y++) {
 			for(int x = 0; x < smallW; x++) {
-				// [DEBUG] System.out.print(distanceMap[x][y]+"\t");
+				System.out.print(distanceMap[x][y]+"\t");
 				max = Math.max(max, distanceMap[x][y]);
 			}
-			// [DEBUG] System.out.println();
+			System.out.println();
 		}
 		
 		System.out.println(max);
