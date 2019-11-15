@@ -24,6 +24,9 @@ public class fracdec {
 		int N = Integer.parseInt(st.nextToken());
 		int D = Integer.parseInt(st.nextToken());
 		
+		in.close();
+		System.out.println((System.nanoTime() - first_time) / 1000000 + "ms [I]");
+		
 		// value before decimal.
 		int whole = N / D;
 		
@@ -34,7 +37,7 @@ public class fracdec {
 		int remainder = N - (whole*D);
 		int c = 0;
 		
-		// Long Division.
+		// Long Division for Decimal Values
 		do {
 			remainder*=10;
 			
@@ -63,11 +66,7 @@ public class fracdec {
 			c++;
 		} while(remainder > 0);
 		
-		
 		String output = whole + "." + decimal.toString();
-
-		// System.out.println(output);
-		
 		PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("fracdec.out")));
 		
 		// Print 76 characters per line.

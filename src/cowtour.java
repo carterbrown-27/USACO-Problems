@@ -9,9 +9,10 @@ import java.io.*;
 public class cowtour {
 	
 	// initial solution was correct through cases 1...7 out of 9, ran quickly
-	// this solution is completely correct, but runs slowly.
-	// TODO: switch out dijkstra for Floyd-Warshall maybe?
-	// Alternatively, could flood fill all nodes, then connect them, but this is slow in the worst case (isolated nodes)
+	// This is now the correct solution for Section 2.4 - Cow Tours.
+	// With help from this blog post: http://zeffsalgo.blogspot.com/2013/12/usaco-training-problem-cow-tours.html
+	private static final double DMAX = Double.MAX_VALUE;
+	
 	public static void main(String[] args) throws IOException {
 		long first_time = System.nanoTime();
 		
@@ -42,6 +43,9 @@ public class cowtour {
 					double edge = pythag(nodes[x],nodes[y]);
 					edges[x][y] = edge;
 					edges[y][x] = edge;
+				}else {
+					edges[x][y] = DMAX;
+					edges[y][x] = DMAX;
 				}
 				// System.out.print(placeRound(edges[x][y],4) + "\t");
 			}
@@ -51,117 +55,75 @@ public class cowtour {
 		in.close();
 		System.out.println((System.nanoTime() - first_time) / 1000000 + "ms [I]");
 		
-		double[] dist = new double[N];
+		double[][] master = floyd_warshall(edges);
 		
-		// minDistance doesn't give wanted answer for test 8, remove
-//		double minDistance = Double.MAX_VALUE;
-		double ans = Double.MAX_VALUE;
-//		ArrayList<Integer[]> bridges = new ArrayList<Integer[]>();
+		System.out.println((System.nanoTime() - first_time) / 1000000 + "ms [A]");
 		
-		// TODO: have a list of possible bridges, iterate over all of them
-		int eval_count = 0;
-		// comments = distance of bridge checking
-		for(int b = 0; b < N; b++) {
-			double[] temp = dijkstra(b,edges);
-			
-			for(int a = 0; a < b; a++) {
-				// can't be an existing edge.
-				if(edges[a][b] > 0) continue;
-				double d = pythag(nodes[a],nodes[b]);
-//				
-				if(d > ans) {
-					continue;
-				}			
-				if(temp[a] < Double.MAX_VALUE) continue;
-				
-				// bridges.add(new Integer[] {a,b});
-//				if(true /* d == minDistance */) {
-//					bridges.add(new Integer[] {a,b});
-//				}
-				/*
-				}else if(d < minDistance) {
-
-					minDistance = d;
-					bridges.clear();
-					bridges.add(new Integer[] {a,b});
-				}*/
-				
-				int[] bridge = {a,b};
-				
-				// System.out.println(bridge[0]+ "|" + bridge[1]);
-				double bridge_d = pythag(nodes[bridge[0]], nodes[bridge[1]]);
-				edges[bridge[1]][bridge[0]] = bridge_d;
-				edges[bridge[0]][bridge[1]] = bridge_d;
-				
-				dist = dijkstra(0,edges);
-				
-				double max = 0;
-				int mp = -1;
-				for(int i = 0; i < dist.length; i++) {
-					if(dist[i] < Double.MAX_VALUE && dist[i] > max) {
-						max = dist[i];
-						mp = i;
-					}
-				}
-				
-//				if(max>ans*3) {
-//					continue;
-//				}
-				
-				if(mp == -1) {
-					ans = Math.min(ans,bridge_d);
-					continue;
-				}
-				
-				eval_count++;
-				
-				// System.out.println("mp: "+mp);
-				dist = dijkstra(mp,edges);
-				
-				double tempAns = 0.0;
-				for(double dv: dist) {
-					// System.out.println(d+"-");
-					if(dv < Double.MAX_VALUE) tempAns = Math.max(tempAns, dv);
-				}
-				
-				// System.out.println(tempAns);
-				if(tempAns > 0) {
-					ans = Math.min(tempAns, ans);		
-				}
-				
-				edges[bridge[1]][bridge[0]] = 0;
-				edges[bridge[0]][bridge[1]] = 0;
+		double[] longestPath = new double[N];
+		
+		for(int j = 0; j < N; j++) {
+			double max = 0;
+			for(int k = 0; k < N; k++) {
+				// System.out.print(master[j][k]+"\t");
+				if(master[j][k] < DMAX) max = Math.max(master[j][k], max);
+			}
+			// System.out.println();
+			longestPath[j] = max;
+		}
+		
+		double[] fieldDiameter = new double[N];
+		for(int j = 0; j < longestPath.length; j++) {
+			for(int k = 0; k < N; k++) {
+				// if nodes are connected, update pasture diameter at that node
+				if(master[j][k] < DMAX) fieldDiameter[k] = Math.max(longestPath[j], fieldDiameter[k]);
 			}
 		}
 
-		// System.out.println("md: "+minDistance);
-//		System.out.println("bridges: "+bridges.size());
-		
 		System.out.println((System.nanoTime() - first_time) / 1000000 + "ms [B]");
 		
-		// BRIDGES
-		System.out.println(eval_count);
+		double answer = DMAX;
 		
+		for(int b = 0; b < N; b++) {
+			for(int a = 0; a < b; a++) {
+				// can't be an existing connected set of points
+				if(master[a][b] < DMAX) continue;
+				
+				if(a == 0 && b==5) {
+					System.out.println("pythag: "+ pythag(nodes[a],nodes[b]));
+					System.out.println("longa: "+longestPath[a]);
+					System.out.println("longb: "+longestPath[b]);
+				}
+				
+				// longest path from a in its field, plus that of b, plus the cost of connecting them
+				double connectedDiameter = pythag(nodes[a],nodes[b]) + longestPath[a] + longestPath[b];
+				
+				// the greatest diameter between the two fields
+				double greatestFieldDiameter = Math.max(fieldDiameter[a], fieldDiameter[b]);
+				
+				// take the bigger of the two
+				double diameter = Math.max(greatestFieldDiameter, connectedDiameter);
+				
+				// System.out.println(a+","+b+": "+diameter);
+				// update answer
+				answer = Math.min(diameter, answer);
+			}
+		}
 		
-//		for(Integer[] bridge: bridges) {
-//
-//		}
-		
+		System.out.println((System.nanoTime() - first_time) / 1000000 + "ms [C]");
 		// FORMAT/OUTPUT
 		
-		ans = placeRound(ans,6);
-		
-		String s = String.valueOf(ans);
+		String s = String.format("%.6f",answer);
+		// System.out.println(s);
 		int B = 6 + (s.split("\\.")[0].length() + 1);
 		
-		String output = String.format("%-"+B+"s",ans).replace(' ', '0');
+		String output = String.format("%-"+B+"s",s).replace(' ', '0');
 		System.out.println(output);
 		
 		PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("cowtour.out")));
 		out.println(output);
 		out.close();
 		
-		System.out.println((System.nanoTime() - first_time) / 1000000 + "ms [F]");
+		System.out.println((System.nanoTime() - first_time) / 1000000 + "ms [O]");
 	}
 	
 	public static double pythag(Point a, Point b) {
@@ -170,60 +132,62 @@ public class cowtour {
 		return Math.sqrt((dx*dx) + (dy*dy));
 	}
 	
-	public static double placeRound(double n, int d) {
-		return Math.round(n * Math.pow(10, d)) / Math.pow(10, d);
+	public static double[][] floyd_warshall(double[][] edges) {
+		int N = edges.length;
+		double[][] floyd = new double[N][N];
+		for(int j = 0; j < N; j++) {
+			for(int k = 0; k <= j; k++) {
+				floyd[j][k] = edges[j][k];
+				floyd[k][j] = edges[j][k];
+			}
+		}
+		
+		for(int inter = 0; inter < N; inter++) {
+			for(int i = 0; i < N; i++) {
+				for(int j = 0; j < N; j++) {
+					double val = Math.min(floyd[i][inter] + floyd[inter][j], floyd[i][j]);
+					floyd[i][j] = val;
+					floyd[j][i] = val;
+				}
+			}
+		}
+		return floyd;
 	}
 	
-	
-	// TODO: fix this fn, this is the problem.
-//	public static double getDiameter(double[] dist) {
-//		double maxNode = Double.MIN_VALUE;
-//		double minNode = Double.MAX_VALUE;
+//	public static double[] dijkstra(int src, double[][] edges) {
+//		int N = edges.length;
 //		
-//		for(int i = 0; i < dist.length; i++) {
-//			double v = dist[i];
-//			if(v < Double.MAX_VALUE) {
-//				maxNode = Math.max(maxNode, v);
-//				minNode = Math.min(minNode, v);
+//		double[] dist = new double[N];
+//		boolean[] inPath = new boolean[N];
+//		
+//		for(int i = 0; i < N; i++) {
+//			dist[i] = Double.MAX_VALUE;
+//		}
+//		dist[src] = 0;
+//		
+//		for(int n = 0; n < N; n++) {
+//			double min = Double.MAX_VALUE;
+//			int a = -1;
+//			for(int i = 0; i < N; i++) {
+//				if(!inPath[i] && dist[i] < min) {
+//					a = i;
+//					min = dist[i];
+//				}
+//			}
+//			
+//			if(a >= 0) {
+//				// if adjacent found.
+//				inPath[a] = true;
+//				
+//				for(int v = 0; v < N; v++) {
+//					if(!inPath[v] && edges[a][v] > 0) {
+//						// shortest of current node + edge and value stored in v
+//						dist[v] = Math.min(dist[v],  dist[a] + edges[a][v]);
+//					}
+//				}
 //			}
 //		}
-//		return Math.abs(maxNode - minNode);
+//		
+//		return dist;
 //	}
-	
-	public static double[] dijkstra(int src, double[][] edges) {
-		int N = edges.length;
-		
-		double[] dist = new double[N];
-		boolean[] inPath = new boolean[N];
-		
-		for(int i = 0; i < N; i++) {
-			dist[i] = Double.MAX_VALUE;
-		}
-		dist[src] = 0;
-		
-		for(int n = 0; n < N; n++) {
-			double min = Double.MAX_VALUE;
-			int a = -1;
-			for(int i = 0; i < N; i++) {
-				if(!inPath[i] && dist[i] < min) {
-					a = i;
-					min = dist[i];
-				}
-			}
-			
-			if(a >= 0) {
-				// if adjacent found.
-				inPath[a] = true;
-				
-				for(int v = 0; v < N; v++) {
-					if(!inPath[v] && edges[a][v] > 0) {
-						// shortest of current node + edge and value stored in v
-						dist[v] = Math.min(dist[v],  dist[a] + edges[a][v]);
-					}
-				}
-			}
-		}
-		
-		return dist;
-	}
 }
