@@ -1,3 +1,5 @@
+=== SECTION 1 ===
+
 Section 1.4 (*....)
 *.. Barn Repair
 *.. Combination Lock
@@ -13,6 +15,8 @@ Section 1.6 (**...)
 **. Prime Palindromes
 **. Number Triangles
 **. Superprime Rib
+
+=== SECTION 2 ===
 
 Section 2.1 (***..)
 *.. Ordered Fractions
@@ -32,3 +36,14 @@ Section 2.3 (***..) - Dynamic Programming
 **. Cow Pedigrees
 *.. Zero Sum
 *.. Money Systems
+
+Section 2.4 (***..) - Shortest Paths
+**. The Tamworth Two
+*.. Overfencing
+*** Cow Tours
+**. Bessie Come Home
+*.. Fractions to Decimals
+
+=== SECTION 3 ===
+
+Section 3.1 (?????) - Minimal Spanning Trees
