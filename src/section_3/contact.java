@@ -11,7 +11,6 @@ public class contact {
 	
 	// Solution to Section 3.1 - Problem 11 "Contact"
 	public static void main(String[] args) throws IOException {
-		// TODO Auto-generated method stub
 		long first_time = System.nanoTime();
 		BufferedReader in;
 		String file = "contact.in";
