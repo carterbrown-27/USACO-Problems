@@ -8,6 +8,7 @@ import java.util.*;
 
 public class stamps {
 
+	// Solution to Section 3.1: "Stamps"
 	public static void main(String[] args)  throws IOException {
 		long first_time = System.nanoTime();
 		BufferedReader in;
@@ -20,6 +21,8 @@ public class stamps {
 		
 		StringTokenizer st = new StringTokenizer(in.readLine());
 		int K = Integer.parseInt(st.nextToken());
+		
+		@SuppressWarnings("unused")
 		int N = Integer.parseInt(st.nextToken());
 		
 		ArrayList<Integer> stamps = new ArrayList<Integer>();
@@ -39,20 +42,23 @@ public class stamps {
 		
 		System.out.println((System.nanoTime() - first_time) / 1000000 + "ms [I]");
 		
-		// DP, works for case 1-9
-		// amt, num of stamps
-		HashMap<Integer,Integer> map = new HashMap<Integer,Integer>();
-		// 0c, 0s
-		map.put(0, 0);
+		// DP
 		
 		final int maxStamp = stamps.get(0);
+		// amt, num of stamps
+		int[] opts = new int[maxStamp*K+1];
+		opts[0] = 0;
 		
 		for(Integer stamp: stamps) {
 			for(int i = 0; i <= (maxStamp*K)-stamp; i++) {
-				int v = map.getOrDefault(i, -1);
+				int v = opts[i];
 				// update next value with smallest amt to get there.
-				if(v >= 0 && v < K) {
-					map.put(i+stamp,Math.min(map.getOrDefault(i+stamp,Integer.MAX_VALUE),v+1));
+				if((v > 0 || i == 0) && v < K) {
+					if(opts[i+stamp] == 0) {
+						opts[i+stamp] = v+1;
+					}else {
+						opts[i+stamp] = Math.min(opts[i+stamp], v+1);
+					}
 				}
 			}
 		}
@@ -66,7 +72,7 @@ public class stamps {
 		int maxStreak = 0;
 		int streak = 0;
 		for(int i = 1; i <= maxStamp*K; i++) {
-			if(map.containsKey(i)) {
+			if(opts[i] > 0) {
 				streak++;
 			}else {
 				maxStreak = Math.max(streak, maxStreak);
