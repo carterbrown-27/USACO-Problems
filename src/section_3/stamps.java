@@ -55,8 +55,10 @@ public class stamps {
 				// update next value with smallest amt to get there.
 				if((v > 0 || i == 0) && v < K) {
 					if(opts[i+stamp] == 0) {
+						// no value
 						opts[i+stamp] = v+1;
 					}else {
+						// existing value
 						opts[i+stamp] = Math.min(opts[i+stamp], v+1);
 					}
 				}
@@ -65,8 +67,9 @@ public class stamps {
 		System.out.println((System.nanoTime() - first_time) / 1000000 + "ms [A]");
 		
 		// DEBUG
-//		for(Integer i: map.keySet()) {
-//			System.out.println(i+"::"+map.get(i));
+//		for(int i = 0; i < opts.length; i++) {
+//			System.out.print(i+"::"+opts[i]+"\t");
+//			if(i%10==0) System.out.println();
 //		}
 		
 		int maxStreak = 0;

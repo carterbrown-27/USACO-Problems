@@ -47,9 +47,11 @@ Section 2.4 (****..) - Shortest Paths
 
 === SECTION 3 ===
 
-Section 3.1 (**....)
+Section 3.1 (***...)
 *.. Agri-Net							agrinet
 *.. Score Inflation						inflate
 ??? Humble Numbers						humble
 **. Contact								contact
-??? Stamps								stamps
+*.. Stamps								stamps
+
+Section 3.2 (??????) - Knapsack
