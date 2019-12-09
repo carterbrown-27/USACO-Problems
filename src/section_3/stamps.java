@@ -3,6 +3,7 @@ ID: carter.2
 LANG: JAVA
 TASK: stamps
  */
+package section_3;
 import java.io.*;
 import java.util.*;
 
