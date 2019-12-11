@@ -3,5 +3,7 @@ These are solutions to the *USA Computing Olympiad* (USACO) training center's pr
 
 # Navigation
 **./src**: All solutions are here, organized by section
+
 **./Problem-Statements**: Descriptions of the problems printed as PDFs directly from the USACO website.
+
 **./DATA**: input files for the programs, usually contain the computationally "hardest" (longest runtime & edge cases) test case that the grader provides for this problem.
