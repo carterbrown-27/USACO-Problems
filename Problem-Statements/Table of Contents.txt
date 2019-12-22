@@ -56,4 +56,6 @@ Section 3.1 (***...)
 
 Section 3.2 (??????) - Knapsack
 *.. Factorials					fact4
---- Stringsobits						
+--- Stringsobits                                kimbits
+**. Spinning Wheels                             spin
+--- Mixing Feeds
