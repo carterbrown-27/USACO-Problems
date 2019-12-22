@@ -1,58 +1,59 @@
 === SECTION 1 ===
 
-Section 1.4 (*.....)					filenames (*.java, *.in, *.out)
-*.. Barn Repair							barn1
-*.. Combination Lock					combo
-**. Ski Course Design					skidesign
-**. Prime Cryptarithm					crypt1
-*** Wormholes							wormhole
+Section 1.4 (*.....)				filenames (*.java, *.in, *.out)
+*.. Barn Repair					barn1
+*.. Combination Lock				combo
+**. Ski Course Design				skidesign
+**. Prime Cryptarithm				crypt1
+*** Wormholes					wormhole
 
 Section 1.5 (**....)
-**. Mother's Milk						milk3
-*** Arithmetic Progressions				ariprog
+**. Mother's Milk				milk3
+*** Arithmetic Progressions			ariprog
 
 Section 1.6 (**....)
-**. Prime Palindromes					pprime
-**. Number Triangles					numtri
-**. Superprime Rib						sprime
+**. Prime Palindromes				pprime
+**. Number Triangles				numtri
+**. Superprime Rib				sprime
 
 === SECTION 2 ===
 
 Section 2.1 (**....)
-*.. Ordered Fractions					frac1
-**. Ordering a Three-Valued Sequence	sort3
-**. Healthy Holsteins					holstein
-**. Hamming Codes						hamming
-*** The Castle							castle
+*.. Ordered Fractions				frac1
+**. Ordering a Three-Valued Sequence		sort3
+**. Healthy Holsteins				holstein
+**. Hamming Codes				hamming
+*** The Castle					castle
 
 Section 2.2 (***...)
-*.. Preface Numbering					preface
-**. Runaround Numbers					runround
-*** Subset Sums							subset
-*** Party Lamps							lamps
+*.. Preface Numbering				preface
+**. Runaround Numbers				runround
+*** Subset Sums					subset
+*** Party Lamps					lamps
 
 Section 2.3 (***...) - DP
-**. Longest Prefix						prefix
-**. Cow Pedigrees						nocows
-*.. Zero Sum							zerosum
-*.. Money Systems						money
-**. Controlling Companies				concom
+**. Longest Prefix				prefix
+**. Cow Pedigrees				nocows
+*.. Zero Sum					zerosum
+*.. Money Systems				money
+**. Controlling Companies			concom
 
 Section 2.4 (****..) - Shortest Paths
-**. The Tamworth Two					ttwo
-*.. Overfencing							maze1
-*** Cow Tours							cowtour
-**. Bessie Come Home					comehome
-*.. Fractions to Decimals				fracdec
+**. The Tamworth Two				ttwo
+*.. Overfencing					maze1
+*** Cow Tours					cowtour
+**. Bessie Come Home				comehome
+*.. Fractions to Decimals			fracdec
 
 === SECTION 3 ===
 
 Section 3.1 (***...)
-*.. Agri-Net							agrinet
-*.. Score Inflation						inflate
-**. Humble Numbers						humble
-**. Contact								contact
-*.. Stamps								stamps
+*.. Agri-Net					agrinet
+*.. Score Inflation				inflate
+**. Humble Numbers				humble
+**. Contact					contact
+*.. Stamps					stamps
 
 Section 3.2 (??????) - Knapsack
---- Factorials							fact4
+*.. Factorials					fact4
+--- Stringsobits						
