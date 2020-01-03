@@ -3,10 +3,11 @@ ID: carter.2
 LANG: JAVA
 TASK: ratios
  */
+package section_3;
 import java.io.*;
 import java.util.*;
 public class ratios {
-
+	// Solution to Section 3.2: "Problem 50_Feed Ratios"
 	public static void main(String[] args) throws IOException {
 		long first_time = System.nanoTime();
 
