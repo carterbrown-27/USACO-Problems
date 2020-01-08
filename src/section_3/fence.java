@@ -40,23 +40,27 @@ public class fence {
 		int lowNonZero = 500;
 		for(Integer i: nodes) {
 			lowNonZero = Math.min(i, lowNonZero);
-			int c = 0;
+			int degree = 0;
 			for(int j = 0; j < 500; j++) {
-				c += edges[i][j];
+				degree += edges[i][j];
 			}
-			if(c%2==1 && i < lowOddDegNode) {
+			if(degree % 2 == 1 && i < lowOddDegNode) {
 				lowOddDegNode = i;
 			}
 		}
 
 		circuit = new ArrayList<Integer>();
-		findCircuit(lowOddDegNode != 500 ? lowOddDegNode : lowNonZero);
+		/*
+		 *  If there's an odd node, start at the lowest of the two odd degree nodes
+		 *  (because the problem states that there's >= 1 solutions, this means that if an odd degree node exists,
+		 *  1, and only 1 other odd degree node in the graph, otherwise there would be no solutions.
+		 *  If all nodes are even, then start at the lowest index node.
+		 */
+		findCircuit(lowOddDegNode < 500 ? lowOddDegNode : lowNonZero);
 		Collections.reverse(circuit);
-		
-		// TODO: ?? get tours from other nodes, compare Base 500 Value.
-		
+
 		PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("fence.out")));
-		circuit.forEach(i -> System.out.println(i));
+		// DEBUG: circuit.forEach(i -> System.out.println(i));
 		circuit.forEach(i -> out.println(i));
 		out.close();
 		System.out.println((System.nanoTime() - first_time) / 1000000 + "ms [O]");
