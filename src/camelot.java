@@ -20,12 +20,12 @@ public class camelot {
 		
 		StringTokenizer st = new StringTokenizer(in.readLine());
 		
-		final int W = Integer.parseInt(st.nextToken());
 		final int H = Integer.parseInt(st.nextToken());
+		final int W = Integer.parseInt(st.nextToken());
 		
 		st = new StringTokenizer(in.readLine());
 		
-		Point king = new Point(st.nextToken().toCharArray()[0] - 'A', Integer.parseInt(st.nextToken()) - 1);
+		Point king = new Point(st.nextToken().charAt(0) - 'A', Integer.parseInt(st.nextToken()) - 1);
 		// System.out.println("king = " + king);
 				
 		// read in knights.
@@ -34,7 +34,7 @@ public class camelot {
 		while(line != null) {
 			st = new StringTokenizer(line);
 			while(st.hasMoreTokens()) {
-				knights.add(new Point(st.nextToken().toCharArray()[0] - 'A', Integer.parseInt(st.nextToken()) - 1));
+				knights.add(new Point(st.nextToken().charAt(0) - 'A', Integer.parseInt(st.nextToken()) - 1));
 			}
 			line = in.readLine();
 		}
@@ -86,14 +86,12 @@ public class camelot {
 		
 		ArrayList<Point> nodes = new ArrayList<>(edgeMap.keySet());
 		int[][] edges = new int[nodes.size()][nodes.size()];
-		final int LARGE = 10000000;
+		final int LARGE = 100000;
 		
 		for(int i = 0; i < edges.length; i++) {
-			for(int j = 0; j <= i; j++) {
+			for(int j = 0; j < i; j++) {
 				// if i's edge map contains j
-				if(i==j) {
-					edges[i][j] = 0;
-				}else if(edgeMap.get(nodes.get(i)).contains(nodes.get(j))) {
+				if(edgeMap.get(nodes.get(i)).contains(nodes.get(j))) {
 					edges[i][j] = 1;
 					edges[j][i] = 1;
 				} else {
@@ -114,7 +112,7 @@ public class camelot {
 			}
 		}
 		
-		System.out.println((System.nanoTime() - first_time) / 1000000 + "ms [FW_DONE]");
+		// System.out.println((System.nanoTime() - first_time) / 1000000 + "ms [FW_DONE]");
 		
 		int[][] kingMap = new int[W][H];
 		for(int x = 0; x < W; x++) {
@@ -123,9 +121,8 @@ public class camelot {
 			}
 		}
 		
-		// TODO: mounting
+		// mounting
 		// mount at point where (edge[knight][point] + 0/1 (king distance) + edge[point][final]) is minimized
-		// must be less than kingmap[point]
 		// this becomes mountingDistance and it replaces kingDist and the mountingKnight dist.
 		// *** don't need to check every point, simply those in those adjacent to the king (or the initial space).
 		// this is because moving a knight is quicker/equal to the king's moves over any distance greater than 1
@@ -143,19 +140,26 @@ public class camelot {
 				// mounting here.
 				int minDist = LARGE;
 				Point mountKnight = new Point(-1,-1);
-				for(int kdx = -1; kdx <= 1 &&  king.x + kdx < W; kdx++) {
+				// Point mountLocation = new Point(-1,-1);
+				int minDistFromSrc = LARGE;
+				
+				final int MAX_KSPACES = 2;
+				for(int kdx = -MAX_KSPACES; kdx <= MAX_KSPACES &&  king.x + kdx < W; kdx++) {
 					if(king.x+kdx < 0) continue;
-					for(int kdy = -1; kdy <= 1 && king.y + kdy < H; kdy++) {
+					for(int kdy = -MAX_KSPACES; kdy <= MAX_KSPACES && king.y + kdy < H; kdy++) {
 						if(king.y+kdy < 0) continue;
 						
 						int pIndex = (king.x+kdx)*H + (king.y+kdy);
 						
 						for(Point knight: knights) {
 							int knIndex = knight.x*H + knight.y;
-							int dist = edges[knIndex][pIndex] + ((kdx == 0 && kdy == 0) ? 0 : 1) + edges[pIndex][src];
-							if(dist < minDist && dist < edges[knIndex][src] + kingMap[x][y]) {
+							int dist = edges[knIndex][pIndex] + Math.max(kdx, kdy);
+							
+							if((dist < minDist && dist <= edges[knIndex][src] + kingMap[x][y]) || (dist == minDist && edges[pIndex][src] < minDistFromSrc)) {
 								minDist = dist;
 								mountKnight = knight;
+								// mountLocation = new Point(king.x+kdx,king.y+kdy);
+								minDistFromSrc = edges[pIndex][src];
 							}
 							// knight already in position.
 							if(edges[knIndex][pIndex] == 0) break;
@@ -173,6 +177,7 @@ public class camelot {
 				
 				if(mountKnight.x != -1) {
 					sum += minDist;
+					sum += minDistFromSrc;
 				}else {
 					sum += kingMap[x][y];
 				}
@@ -182,7 +187,7 @@ public class camelot {
 					minLoc = new Point(x,y);
 				}
 				
-				// System.out.println((char) ('A'+x)+","+(y+1)+": "+sum + "\t || "+mountKnight);
+				// System.out.println((char) ('A'+x)+","+(y+1)+": "+sum + "\t || "+mountKnight+ " || "+mountLocation);
 			}
 		}
 		
