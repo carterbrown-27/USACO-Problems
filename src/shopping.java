@@ -57,7 +57,8 @@ public class shopping {
 			offers.put(q_map,Math.min(offers.getOrDefault(q_map,Integer.MAX_VALUE),price));
 		}
 		
-		int[][][][][] solutions = new int[5][5][5][5][5];
+		int[][][][][] solutions = new int[6][6][6][6][6];
+		
 		
 		// solution = # a-e.
 		int price = 0;

@@ -54,7 +54,7 @@ Section 3.1 (***...)
 **. Contact					contact
 *.. Stamps					stamps
 
-Section 3.2 (***..) - Knapsack
+Section 3.2 (***...) - Knapsack
 *.. Factorials					fact4
 *** Stringsobits                                kimbits
 **. Spinning Wheels                             spin
@@ -62,9 +62,9 @@ Section 3.2 (***..) - Knapsack
 *** Magic Squares				msquare
 **. Sweet Butter				butter
 
-Section 3.3 (???..) - Eulerian Tours
+Section 3.3 (****..) - Eulerian Tours
 *.. Riding the Fences				fence
-??? Shopping Offers
-??? Camelot
-??? Home on the Range
-??? A Game
+??? Shopping Offers				shopping
+*** Camelot					camelot
+**. Home on the Range				range
+**. A Game					game1

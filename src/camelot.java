@@ -7,8 +7,8 @@ import java.io.*;
 import java.util.*;
 import java.awt.Point;
 public class camelot {
+	// Solution for Section 3.3: "Camelot"... Cases 1-10 out of 20.
 	public static void main(String[] args) throws IOException {
-		// TODO Auto-generated method stub
 		long first_time = System.nanoTime();
 		BufferedReader in;
 		String file = "camelot.in";
@@ -38,6 +38,8 @@ public class camelot {
 			}
 			line = in.readLine();
 		}
+		
+		in.close();
 		
 		// knights.forEach(i -> System.out.println(i));
 		
@@ -74,7 +76,7 @@ public class camelot {
 			}
 		}
 		
-		// roughly 5ms for Worst Case.
+		// roughly 35ms for Worst Case.
 		// System.out.println((System.nanoTime() - first_time) / 1000000 + "ms [INIT]");
 		
 		// DEBUG:
@@ -103,7 +105,7 @@ public class camelot {
 		
 		// System.out.println((System.nanoTime() - first_time) / 1000000 + "ms [FW_INIT]");
 		
-		// FW for the board.
+		// Floyd-Warshall for the board.
 		for(int k = 0; k < edges.length; k++) {
 			for(int i = 0; i < edges.length; i++) {
 				for(int j = 0; j < edges.length; j++) {
@@ -134,31 +136,43 @@ public class camelot {
 		
 		// convene at (x,y).
 		for(int x = 0; x < W; x++) {
+			inner:
 			for(int y = 0; y < H; y++) {
 				int src = x*H + y;
+				
+				int sum = 0;
+				for(Point knight: knights) {
+					int i = knight.x*H + knight.y;
+					sum += edges[src][i];
+					if(sum > minSum) continue inner;
+				}
+				// System.out.println("pre sum = "+sum);
 				
 				// mounting here.
 				int minDist = LARGE;
 				Point mountKnight = new Point(-1,-1);
-				// Point mountLocation = new Point(-1,-1);
+				Point mountLocation = new Point(-1,-1);
 				int minDistFromSrc = LARGE;
 				
 				final int MAX_KSPACES = 2;
 				for(int kdx = -MAX_KSPACES; kdx <= MAX_KSPACES &&  king.x + kdx < W; kdx++) {
 					if(king.x+kdx < 0) continue;
 					for(int kdy = -MAX_KSPACES; kdy <= MAX_KSPACES && king.y + kdy < H; kdy++) {
-						if(king.y+kdy < 0) continue;
+						if(king.y+kdy < 0) {
+							continue;
+						}
 						
 						int pIndex = (king.x+kdx)*H + (king.y+kdy);
 						
 						for(Point knight: knights) {
 							int knIndex = knight.x*H + knight.y;
-							int dist = edges[knIndex][pIndex] + Math.max(kdx, kdy);
+							int dist = edges[knIndex][pIndex] + Math.max(Math.abs(kdx), Math.abs(kdy));
 							
-							if((dist < minDist && dist <= edges[knIndex][src] + kingMap[x][y]) || (dist == minDist && edges[pIndex][src] < minDistFromSrc)) {
+							if((dist < minDist && dist < edges[knIndex][src] + kingMap[x][y])
+							|| (dist == minDist && edges[pIndex][src] < minDistFromSrc)) {
 								minDist = dist;
 								mountKnight = knight;
-								// mountLocation = new Point(king.x+kdx,king.y+kdy);
+								mountLocation = new Point(king.x+kdx,king.y+kdy);
 								minDistFromSrc = edges[pIndex][src];
 							}
 							// knight already in position.
@@ -167,17 +181,11 @@ public class camelot {
 					}
 				}
 				
-				int sum = 0;
-				for(Point knight: knights) {
-					if(knight == mountKnight) continue;
-					int i = knight.x*H + knight.y;
-					sum += edges[src][i];
-					if(sum > minSum) break;
-				}
-				
 				if(mountKnight.x != -1) {
+					sum -= edges[mountKnight.x*H + mountKnight.y][src];
 					sum += minDist;
 					sum += minDistFromSrc;
+					// if(x==0&&y==14) System.out.println(minDist+","+minDistFromSrc);
 				}else {
 					sum += kingMap[x][y];
 				}
@@ -187,7 +195,7 @@ public class camelot {
 					minLoc = new Point(x,y);
 				}
 				
-				// System.out.println((char) ('A'+x)+","+(y+1)+": "+sum + "\t || "+mountKnight+ " || "+mountLocation);
+				System.out.println((char) ('A'+x)+","+(y+1)+": "+sum + "\t || "+mountKnight+ " || "+mountLocation);
 			}
 		}
 		
